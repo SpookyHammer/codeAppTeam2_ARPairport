@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-public final class registratieGeslaagd_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class detail_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -41,27 +41,19 @@ public final class registratieGeslaagd_jsp extends org.apache.jasper.runtime.Htt
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
-      out.write("\r\n");
-      out.write("\r\n");
-      out.write("\r\n");
-      out.write("<!DOCTYPE html>\r\n");
-      out.write("<html>\r\n");
-      out.write("    <head>\r\n");
-      out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n");
-      out.write("        <title>JSP Page</title>\r\n");
-      out.write("    </head>\r\n");
-      out.write("    <body>\r\n");
-      out.write("        <h1>Registratie geslaagd</h1>\r\n");
-      out.write("        \r\n");
-      out.write("        <p>Dank u, ");
-      out.print(request.getAttribute("voornaam"));
-      out.write("</p>\r\n");
-      out.write("        \r\n");
-      out.write("        <p>U bent geregistreerd en kan nu vluchten boeken.</p>\r\n");
-      out.write("        \r\n");
-      out.write("        <a href=\"index.jsp\">Keer terug naar de hoofdpagina</a>\r\n");
-      out.write("    </body>\r\n");
-      out.write("</html>\r\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("<!DOCTYPE html>\n");
+      out.write("<html>\n");
+      out.write("    <head>\n");
+      out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
+      out.write("        <title>Detail Vlucht</title>\n");
+      out.write("    </head>\n");
+      out.write("    <body>\n");
+      out.write("        <h1>Detail Vlucht: </h1>\n");
+      out.write("    </body>\n");
+      out.write("</html>\n");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;
