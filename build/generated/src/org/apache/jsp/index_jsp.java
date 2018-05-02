@@ -3,6 +3,7 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import hbo5.it.www.beans.Persoon;
 
 public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -41,37 +42,58 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("<!DOCTYPE html>\n");
-      out.write("<html>\n");
-      out.write("    <head>\n");
-      out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
-      out.write("        <title>Startscherm</title>\n");
-      out.write("    </head>\n");
-      out.write("    <body>\n");
-      out.write("        <h1>Paper Flights</h1>\n");
-      out.write("        <p>\n");
-      out.write("            <img src=\"images/Paperflights.png\" alt=\"afbeelding\"/>\n");
-      out.write("        </p>\n");
-      out.write("        <p>\n");
-      out.write("            Team 2\n");
-      out.write("        </p>\n");
-      out.write("        <p>\n");
-      out.write("        <form action=\"vluchtenZoeken.jsp\">\n");
-      out.write("            <input type=\"submit\" value=\"Vluchten Zoeken\" name=\"OpenZoekpagina\"/>\n");
-      out.write("        </form>      \n");
-      out.write("        \n");
-      out.write("        <form action=\"InlogServlet\">\n");
-      out.write("            <input type=\"submit\" value=\"Inloggen\" name=\"InlogKnop\"/>\n");
-      out.write("        </form>\n");
-      out.write("        \n");
-      out.write("        \n");
-      out.write("        <a href=\"registratie.jsp\">Registratietest</a>\n");
-      out.write("        </p>\n");
-      out.write("    </body>\n");
-      out.write("</html>\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("<!DOCTYPE html>\r\n");
+      out.write("<html>\r\n");
+      out.write("    <head>\r\n");
+      out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n");
+      out.write("        <title>Startscherm</title>\r\n");
+      out.write("    </head>\r\n");
+      out.write("    <body>\r\n");
+      out.write("        <h1>Paper Flights</h1>\r\n");
+      out.write("        <p>\r\n");
+      out.write("            <img src=\"images/Paperflights.png\" alt=\"afbeelding\"/>\r\n");
+      out.write("        </p>\r\n");
+      out.write("        <p>\r\n");
+      out.write("            Team 2\r\n");
+      out.write("        </p>\r\n");
+      out.write("        <p>\r\n");
+      out.write("        <form action=\"ZoekServlet\">\r\n");
+      out.write("            <input type=\"submit\" value=\"Vluchten Zoeken\" name=\"OpenZoekpagina\"/>\r\n");
+      out.write("        </form>      \r\n");
+      out.write("        \r\n");
+      out.write("        <form action=\"InlogServlet\">\r\n");
+      out.write("             <!-- Zet dit er bij voor een de naam van de gebruiker en een inlog of uitlog button te hebben : -->\r\n");
+      out.write("            \r\n");
+      out.write("            ");
+Persoon persoon = (Persoon) request.getAttribute("persoon");
+            if(persoon != null){
+      out.write("\r\n");
+      out.write("            <P>\r\n");
+      out.write("                <label name=\"naam\">");
+      out.print(persoon.getVoornaam() );
+      out.write("</label>\r\n");
+      out.write("                <label name=\"famillienaam\">");
+      out.print(persoon.getFamilienaam() );
+      out.write("</label>\r\n");
+      out.write("            </p>\r\n");
+      out.write("            <input type=\"submit\" value=\"Uitloggen\" name=\"UitlogKnop\"/>\r\n");
+      out.write("           ");
+} else {
+      out.write("\r\n");
+      out.write("            <input type=\"submit\" value=\"Inloggen\" name=\"InlogKnop\"/>\r\n");
+      out.write("            ");
+}
+      out.write("\r\n");
+      out.write("        </form>        \r\n");
+      out.write("        \r\n");
+      out.write("        <a href=\"registratie.jsp\">Registratietest</a>\r\n");
+      out.write("        </p>\r\n");
+      out.write("    </body>\r\n");
+      out.write("</html>\r\n");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;

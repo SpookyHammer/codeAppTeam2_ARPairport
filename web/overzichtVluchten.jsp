@@ -16,6 +16,7 @@
     <body>
         <%ArrayList<Vlucht> lijstAlleVluchten = (ArrayList<Vlucht>) request.getAttribute("lijstAlleVluchten");%>
         <%ArrayList<Vlucht> lijstAlleBinnenkomendeVluchten = (ArrayList<Vlucht>) request.getAttribute("lijstAlleBinnenkomendeVluchten");%>
+        <%ArrayList<Vlucht> lijstAlleVertrekkendeVluchten = (ArrayList<Vlucht>) request.getAttribute("lijstAlleVertrekkendeVluchten");%>
         
         <h1>Overzicht vluchten</h1>
         
@@ -32,9 +33,8 @@
                 <tbody>
                     
                         <%  if (lijstAlleBinnenkomendeVluchten != null) {
+                        for (Vlucht vlucht : lijstAlleBinnenkomendeVluchten)
                             
-                        }
-                        for (Vlucht vlucht : lijstAlleBinnenkomendeVluchten) 
                     {%>
                     <tr>
                         <td> <%=vlucht.getCode()%></td>
@@ -43,7 +43,16 @@
                         <td><%=vlucht.getAankomstluchthaven() %></td>
                         <td> <%=vlucht.getAankomsttijd() %></td> 
                     </tr>
-                    <%}%>
+                    <%}}else if (lijstAlleVertrekkendeVluchten != null) {
+                    for (Vlucht vlucht : lijstAlleVertrekkendeVluchten) {%>
+                    <tr>
+                        <td> <%=vlucht.getCode()%></td>
+                        <td><%=vlucht.getVertrekluchthaven() %></td>
+                        <td> <%=vlucht.getVertrektijd() %></td>
+                        <td><%=vlucht.getAankomstluchthaven() %></td>
+                        <td> <%=vlucht.getAankomsttijd() %></td> 
+                    </tr>
+                    <%}}%>
                 </tbody>
             </table>
                 

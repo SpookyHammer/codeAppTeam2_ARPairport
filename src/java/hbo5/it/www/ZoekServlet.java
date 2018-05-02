@@ -74,11 +74,14 @@ public class ZoekServlet extends HttpServlet {
             throws ServletException, IOException {
         RequestDispatcher rd = null;
         
-        if (request.getParameter("ZoekKnop") != null) 
+        if(request.getParameter("OpenZoekpagina") != null)
         {
             ArrayList<Luchthaven> lijstAlleLuchthavens = daluchthaven.getAlleLuchthavens();
             request.setAttribute("lijstAlleLuchthavens", lijstAlleLuchthavens);
             rd = request.getRequestDispatcher("vluchtenZoeken.jsp");
+        }
+        if (request.getParameter("ZoekKnop") != null) 
+        {
             
             if (request.getParameter("naamLuchthaven") != null) {
                 int luchthavenID = Integer.parseInt(request.getParameter("naamLuchthaven"));
@@ -90,8 +93,11 @@ public class ZoekServlet extends HttpServlet {
                 rd = request.getRequestDispatcher("overzichtVluchten.jsp");
                    
             }
-            else if (true) {
+            else if (request.getParameter("keuzeLuchthaven").equals("vertrek")) {
 //                code vertrekkende vluchten
+                ArrayList<Vlucht> lijstAlleVertrekkendeVluchten = davlucht.getAlleVertrekkendeVluchten(luchthavenID);
+                request.setAttribute("lijstAlleVertrekkendeVluchten", lijstAlleVertrekkendeVluchten);
+                rd = request.getRequestDispatcher("overzichtVluchten.jsp");
             }
                 else{
                     String foutmelding = "Geen vluchten gevonden.";
