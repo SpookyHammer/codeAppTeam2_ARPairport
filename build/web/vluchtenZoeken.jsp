@@ -4,6 +4,7 @@
     Author     : c1043194
 --%>
 
+<%@page import="hbo5.it.www.beans.Luchthaven"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="hbo5.it.www.beans.Vlucht"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,7 +15,7 @@
         <title>Vluchten zoeken</title>
     </head>
     <body>
-        <%ArrayList<Vlucht> lijstAlleBinnenkomendeVluchten = (ArrayList<Vlucht>) request.getAttribute("lijstAlleBinnenkomendeVluchten");%>
+        <%ArrayList<Luchthaven> lijstAlleLuchthavens = (ArrayList<Luchthaven>) request.getAttribute("lijstAlleLuchthavens");%>
         
         <h1>Zoek hier uw vlucht</h1>
         
@@ -27,19 +28,15 @@
                     <option value="aankomst">Luchthaven van aankomst</option>
                 </select>
             </p>
-            <p>
+            <p> <!-- We gebruiken de value van de geslecteerde luchthaven voor zowel de methode van binnenkomende vluchten als vertrekkende vluchten in de zoekServlet -->
                 <label for="naamLuchthaven">Naam luchthaven:</label>
                 <select name ="naamLuchthaven">
                     <option value="0">---Kies hier je luchthaven---</option>
-                    <% for (Vlucht vlucht : lijstAlleBinnenkomendeVluchten) {%>
-                    <option value="<%=vlucht.getAankomstluchthaven_id() %>"><%=vlucht.getAankomstluchthaven().getLuchthavennaam()%> </option>
-                    
-                    <option value="2">Luchthaven van vertrek</option>
+                    <% for (Luchthaven luchthaven : lijstAlleLuchthavens) {%>
+                    <option value="<%=luchthaven.getId() %>"><%=luchthaven.getLuchthavennaam() %>, <%=luchthaven.getLand().getLandnaam()%> </option>
                     <%}%>
                 </select>
             </p>
-            
-          
             <input type="submit" value="Zoeken" name="ZoekKnop"/>
         </form>  
         

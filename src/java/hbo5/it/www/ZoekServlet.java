@@ -12,6 +12,7 @@ Groepsleden: Cools Jasper, Gostek Kaân, Leysen Eline, Winkelmans Quinten
 
 import hbo5.it.www.beans.Luchthaven;
 import hbo5.it.www.beans.Vlucht;
+import hbo5.it.www.dataaccess.DALuchthaven;
 import hbo5.it.www.dataaccess.DAVlucht;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -46,6 +47,7 @@ public class ZoekServlet extends HttpServlet {
      */
     
     private DAVlucht davlucht = null;
+    private DALuchthaven daluchthaven = null;
 
     @Override
     public void init() throws ServletException {
@@ -56,6 +58,9 @@ public class ZoekServlet extends HttpServlet {
             String driver = getInitParameter("driver");
             if (davlucht == null) {
                 davlucht = new DAVlucht(url, login, password, driver);
+            }
+            if (daluchthaven == null) {
+                daluchthaven = new DALuchthaven(url, login, password, driver);
             }
         } catch (ClassNotFoundException e) {
             throw new ServletException(e);
@@ -71,23 +76,34 @@ public class ZoekServlet extends HttpServlet {
         
         if (request.getParameter("ZoekKnop") != null) 
         {
-            if (request.getParameter("keuzeLuchthaven").equals("aankomst")) {
+            ArrayList<Luchthaven> lijstAlleLuchthavens = daluchthaven.getAlleLuchthavens();
+            request.setAttribute("lijstAlleLuchthavens", lijstAlleLuchthavens);
+            rd = request.getRequestDispatcher("vluchtenZoeken.jsp");
+            
+            if (request.getParameter("naamLuchthaven") != null) {
+                int luchthavenID = Integer.parseInt(request.getParameter("naamLuchthaven"));
                 
+                if (request.getParameter("keuzeLuchthaven").equals("aankomst")) 
+            {
+                ArrayList<Vlucht> lijstAlleBinnenkomendeVluchten = davlucht.getAlleBinnenkomendeVluchten(luchthavenID);
+                request.setAttribute("lijstAlleBinnenkomendeVluchten", lijstAlleBinnenkomendeVluchten);
+                rd = request.getRequestDispatcher("overzichtVluchten.jsp");
                    
             }
             else if (true) {
 //                code vertrekkende vluchten
             }
-            ArrayList<Vlucht> lijstAlleBinnenkomendeVluchten = davlucht.getAlleBinnenkomendeVluchten(0);
-            request.setAttribute("lijstAlleBinnenkomendeVluchten", lijstAlleBinnenkomendeVluchten);
-            rd = request.getRequestDispatcher("overzichtVluchten.jsp");
-        }
-        
-        else{
+                else{
                     String foutmelding = "Geen vluchten gevonden.";
                     request.setAttribute("foutmelding", foutmelding);
                     rd = request.getRequestDispatcher("fout.jsp");
                 }   
+            }
+            
+            
+        }
+        
+        
  
         rd.forward(request, response);
         
