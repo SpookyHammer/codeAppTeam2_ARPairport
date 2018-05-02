@@ -74,12 +74,14 @@ public class ZoekServlet extends HttpServlet {
             throws ServletException, IOException {
         RequestDispatcher rd = null;
         
-        if (request.getParameter("ZoekKnop") != null) 
-        {
+        if (request.getParameter("OpenZoekpagina") != null) {
             ArrayList<Luchthaven> lijstAlleLuchthavens = daluchthaven.getAlleLuchthavens();
             request.setAttribute("lijstAlleLuchthavens", lijstAlleLuchthavens);
             rd = request.getRequestDispatcher("vluchtenZoeken.jsp");
-            
+        }
+
+        if (request.getParameter("ZoekKnop") != null) 
+        { 
             if (request.getParameter("naamLuchthaven") != null) {
                 int luchthavenID = Integer.parseInt(request.getParameter("naamLuchthaven"));
                 
@@ -99,15 +101,11 @@ public class ZoekServlet extends HttpServlet {
                     rd = request.getRequestDispatcher("fout.jsp");
                 }   
             }
-            
-            
         }
         
         
  
-        rd.forward(request, response);
-        
-           
+        rd.forward(request, response);  
         }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -42,7 +42,7 @@ public class DALuchthaven {
                     + "ORDER BY luchthavennaam");) 
         
         {
-            while (resultSet.next()) {;
+            while (resultSet.next()) {
                 luchthaven = new Luchthaven();
                 luchthaven.setId(resultSet.getInt(1));
                 luchthaven.setLuchthavennaam(resultSet.getString(2));
