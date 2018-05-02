@@ -14,7 +14,9 @@
         <title>Overzicht vluchten</title>
     </head>
     <body>
-        <%ArrayList<Vlucht> lijstAlleVluchten = (ArrayList<Vlucht>) request.getAttribute("lijstAlleVluchten");%>
+        <!-- mag deze weg? , ben niet zeker of ik deze vorige les had toegevoegd of iemand anders.. -->
+        <%ArrayList<Vlucht> lijstAlleVluchten = (ArrayList<Vlucht>) request.getAttribute("lijstAlleVluchten");%> 
+        
         <%ArrayList<Vlucht> lijstAlleBinnenkomendeVluchten = (ArrayList<Vlucht>) request.getAttribute("lijstAlleBinnenkomendeVluchten");%>
         
         <h1>Overzicht vluchten</h1>
@@ -32,9 +34,7 @@
                 <tbody>
                     
                         <%  if (lijstAlleBinnenkomendeVluchten != null) {
-                            
-                        }
-                        for (Vlucht vlucht : lijstAlleBinnenkomendeVluchten) 
+                            for (Vlucht vlucht : lijstAlleBinnenkomendeVluchten) 
                     {%>
                     <tr>
                         <td> <%=vlucht.getCode()%></td>
@@ -43,7 +43,9 @@
                         <td><%=vlucht.getAankomstluchthaven() %></td>
                         <td> <%=vlucht.getAankomsttijd() %></td> 
                     </tr>
-                    <%}%>
+                    <%}
+                        }else //kijken of lijst vertrekkende vluchten opgevuld is en deze resultaten tonen %>
+                        
                 </tbody>
             </table>
                 
