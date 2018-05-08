@@ -63,10 +63,10 @@ public final class inloggen_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                        <input type=\"text\" name=\"Logintext\" value=\"\" id=\"Logintext\"/>\r\n");
       out.write("                   </p>\r\n");
       out.write("                   <p>\r\n");
-      out.write("                        <label for=\"password\">Paswoord:</label>\r\n");
-      out.write("                        <input type=\"text\" name=\"password\" value=\"\" id=\"Passwordtext\"/>\r\n");
+      out.write("                        <label for=\"passwoord\">Paswoord:</label>\r\n");
+      out.write("                        <input type=\"text\" name=\"Passwoordtext\" value=\"\" id=\"Passwoordtext\"/>\r\n");
       out.write("                   </p>\r\n");
-      out.write("                   <input type=\"submit\" name=\"Loginknop\" value=\"Aanmelden\"\r\n");
+      out.write("                   <input type=\"submit\" name=\"Loginknop\" value=\"Aanmelden\"/>\r\n");
       out.write("            </form>\r\n");
       out.write("            <p>  <a href=\"index.jsp\">Terug naar beginpagina</a></p>\r\n");
       out.write("        </div>\r\n");

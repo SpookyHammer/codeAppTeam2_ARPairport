@@ -4,6 +4,7 @@
     Author     : c1043194
 --%>
 
+<%@page import="hbo5.it.www.beans.Persoon"%>
 <%@page import="hbo5.it.www.beans.Luchthaven"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="hbo5.it.www.beans.Vlucht"%>
@@ -38,7 +39,22 @@
                 </select>
             </p>
             <input type="submit" value="Zoeken" name="ZoekKnop"/>
-        </form>  
+        </form> 
+                
+        <form action="InlogServlet">
+             <!-- Zet dit er bij voor een de naam van de gebruiker en een inlog of uitlog button te hebben : -->
+            
+            <%Persoon persoon = (Persoon) request.getAttribute("persoon");
+            if(persoon != null){%>
+            <P>
+                <label name="naam"><%=persoon.getVoornaam() %></label>
+                <label name="famillienaam"><%=persoon.getFamilienaam() %></label>
+            </p>
+            <input type="submit" value="Uitloggen" name="UitlogKnop"/>
+           <%} else {%>
+            <input type="submit" value="Inloggen" name="InlogKnop"/>
+            <%}%>
+        </form>    
         
         <p>  <a href="index.jsp">Terug naar beginpagina</a></p>
     </body>
