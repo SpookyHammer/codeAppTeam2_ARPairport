@@ -4,6 +4,7 @@
     Author     : c1042016
 --%>
 
+<%@page import="hbo5.it.www.beans.Persoon"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -28,5 +29,21 @@
             
             <input type="submit" value="registreren" Name="RegistratieKnop"></input>
         </form>
+        
+         <form action="InlogServlet">
+             <!-- Zet dit er bij voor een de naam van de gebruiker en een inlog of uitlog button te hebben : -->
+            <%Persoon persoon = (Persoon) request.getAttribute("persoon");
+            if(persoon != null){%>
+            <P>
+                <label name="naam"><%=persoon.getVoornaam() %></label>
+                <label name="famillienaam"><%=persoon.getFamilienaam() %></label>
+            </p>
+            <input type="submit" value="Uitloggen" name="UitlogKnop"/>
+           <%} else {%>
+            <input type="submit" value="Inloggen" name="InlogKnop"/>
+            <%}%>
+        </form>               
+        
+        
     </body>
 </html>

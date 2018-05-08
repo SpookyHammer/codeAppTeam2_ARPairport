@@ -23,7 +23,7 @@
             Team 2
         </p>
         <p>
-        <form action="vluchtenZoeken.jsp">
+        <form action="ZoekServlet">
             <input type="submit" value="Vluchten Zoeken" name="OpenZoekpagina"/>
         </form>      
         

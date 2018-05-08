@@ -61,7 +61,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            Team 2\r\n");
       out.write("        </p>\r\n");
       out.write("        <p>\r\n");
-      out.write("        <form action=\"vluchtenZoeken.jsp\">\r\n");
+      out.write("        <form action=\"ZoekServlet\">\r\n");
       out.write("            <input type=\"submit\" value=\"Vluchten Zoeken\" name=\"OpenZoekpagina\"/>\r\n");
       out.write("        </form>      \r\n");
       out.write("        \r\n");
