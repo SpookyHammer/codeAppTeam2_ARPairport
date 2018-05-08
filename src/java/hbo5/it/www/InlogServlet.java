@@ -62,7 +62,7 @@ public class InlogServlet extends HttpServlet {
                 request.setAttribute("persoon", persoon);
                 rd = request.getRequestDispatcher("index.jsp");
             } else {
-                rd = request.getRequestDispatcher("Fout.jsp");
+                rd = request.getRequestDispatcher("fout.jsp");
             }
         }
         if (request.getParameter("UitlogKnop") != null) {
