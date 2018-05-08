@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = {"/ZoekServlet"}, initParams = {
     @WebInitParam(name = "url", value = "jdbc:oracle:thin:@ti-oracledb06.thomasmore.be:1521:XE")
-    , @WebInitParam(name = "login", value = "c1013194")
+    , @WebInitParam(name = "login", value = "c1043194")
     , @WebInitParam(name = "password", value = "1234")
     , @WebInitParam(name = "driver", value = "oracle.jdbc.driver.OracleDriver")})
 public class ZoekServlet extends HttpServlet {
@@ -88,9 +88,17 @@ public class ZoekServlet extends HttpServlet {
                 if (request.getParameter("keuzeLuchthaven").equals("aankomst")) 
             {
                 ArrayList<Vlucht> lijstAlleBinnenkomendeVluchten = davlucht.getAlleBinnenkomendeVluchten(luchthavenID);
-                request.setAttribute("lijstAlleBinnenkomendeVluchten", lijstAlleBinnenkomendeVluchten);
-                rd = request.getRequestDispatcher("overzichtVluchten.jsp");
-                   
+                
+                if (lijstAlleBinnenkomendeVluchten.size() > 0) {
+                    request.setAttribute("lijstAlleBinnenkomendeVluchten", lijstAlleBinnenkomendeVluchten);
+                    rd = request.getRequestDispatcher("overzichtVluchten.jsp");
+                }
+                else{
+                    String foutmelding = "Geen vluchten gevonden.";
+                    request.setAttribute("foutmelding", foutmelding);
+                    rd = request.getRequestDispatcher("fout.jsp");
+                }   
+    
             }
             else if (true) {
 //                code vertrekkende vluchten

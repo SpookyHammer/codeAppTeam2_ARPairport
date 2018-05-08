@@ -34,7 +34,7 @@ public class DAPersoon {
         
         try(
             Connection connection = DriverManager.getConnection(url, login, password);
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM persoon WHERE persoon.login like ? AND persoon.paswoord like ?");)
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM persoon WHERE persoon.login = ? AND persoon.paswoord = ?");)
             {
                 statement.setString(1, gb);
                 statement.setString(2, pw);
@@ -43,7 +43,7 @@ public class DAPersoon {
                     persoon = new Persoon();
                     persoon.setFamilienaam(resultSet.getString("familienaam"));
                     persoon.setGeboortedatum(resultSet.getDate("geboortedatum"));
-                    persoon.setId(resultSet.getInt("persoon_id"));
+                    persoon.setId(resultSet.getInt("id"));
                     persoon.setHuisnr(resultSet.getString("huisnr"));
                     persoon.setLand(resultSet.getString("land"));
                     persoon.setLogin(resultSet.getString("login"));

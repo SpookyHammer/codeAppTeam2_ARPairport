@@ -48,18 +48,15 @@ public final class fout_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<html>\r\n");
       out.write("    <head>\r\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n");
-      out.write("        <title>JSP Page</title>\r\n");
+      out.write("        <title>Foutpagina</title>\r\n");
       out.write("    </head>\r\n");
       out.write("    <body>\r\n");
-      out.write("\t\r\n");
-      out.write("        <!--Foutmelding Quinten -->\r\n");
+      out.write("\r\n");
       out.write("        <h1>Er is iets fout gegaan!</h1>\r\n");
-      out.write("\t\r\n");
-      out.write("        \r\n");
-      out.write("        <!--Foutmelding Jasper -->\r\n");
-      out.write("        <h1>Foutmelding!</h1>\r\n");
-      out.write("        \r\n");
+      out.write("\t        \r\n");
       out.write("        <p>Vul alle velden correct in aub!</p>\r\n");
+      out.write("        \r\n");
+      out.write("        <a href=\"index.jsp\">Home</a>\r\n");
       out.write("    </body>\r\n");
       out.write("</html>\r\n");
     } catch (Throwable t) {

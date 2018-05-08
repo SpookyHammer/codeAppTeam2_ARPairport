@@ -23,10 +23,10 @@
                         <input type="text" name="Logintext" value="" id="Logintext"/>
                    </p>
                    <p>
-                        <label for="password">Paswoord:</label>
-                        <input type="text" name="password" value="" id="Passwordtext"/>
+                        <label for="passwoord">Paswoord:</label>
+                        <input type="text" name="Passwoordtext" value="" id="Passwoordtext"/>
                    </p>
-                   <input type="submit" name="Loginknop" value="Aanmelden"
+                   <input type="submit" name="Loginknop" value="Aanmelden"/>
             </form>
             <p>  <a href="index.jsp">Terug naar beginpagina</a></p>
         </div>
