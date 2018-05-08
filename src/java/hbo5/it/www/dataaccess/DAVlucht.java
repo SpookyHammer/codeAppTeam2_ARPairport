@@ -45,12 +45,14 @@ public class DAVlucht {
                     + "INNER JOIN land land1 ON land1.id = luchthaven1.land_id "
                     + "INNER JOIN luchthaven luchthaven2 ON  vlucht.vertrekluchthaven_id = luchthaven2.id " 
                     + "INNER JOIN land land2 ON land2.id = luchthaven2.land_id "
+                    + "INNER JOIN vliegtuig vliegtuig ON Vliegtuig.id = vlucht.VLIEGTUIG_ID"
+                    + "INNER JOIN Luchtvaartmaatschappij luchtvaartmaatschappij  ON luchtvaartmaatschappij.id = vliegtuig.LUCHTVAARTMAATSCHAPPIJ_ID"
                     + "WHERE vlucht.aankomstluchthaven_id = ?");)
                 
         {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
+            while (resultSet.next()) {;
                 vlucht = new Vlucht();
                 vlucht.setId(resultSet.getInt("id"));
                 vlucht.setCode(resultSet.getString("code"));
@@ -82,6 +84,20 @@ public class DAVlucht {
                 landVertrek.setId(resultSet.getInt(18));
                 landVertrek.setLandnaam(resultSet.getString(19));
                 
+                vertrekluchthaven.setLand(landVertrek);
+                vlucht.setVertrekluchthaven(vertrekluchthaven);
+                                
+                Vliegtuig vliegtuig = new Vliegtuig();
+                vliegtuig.setId(resultSet.getInt(20));
+                vliegtuig.setVliegtuigtype_id(resultSet.getInt(21));
+                vliegtuig.setLuchtvaartmaatschappij_id(resultSet.getInt(22));
+                
+                Luchtvaartmaatschappij lvms = new Luchtvaartmaatschappij();
+                lvms.setId(resultSet.getInt(23));
+                lvms.setLuchtvaartnaam(resultSet.getString(24));
+                vliegtuig.setLuchtvaartmaatschappij(lvms);
+                
+                vlucht.setVliegtuig(vliegtuig);
                
                 lijstAlleVluchten.add(vlucht);
             }
@@ -100,9 +116,11 @@ public class DAVlucht {
             PreparedStatement statement = connection.prepareStatement( "SELECT * "
                     + "FROM vlucht "
                     + "INNER JOIN luchthaven luchthaven1 ON  vlucht.aankomstluchthaven_id = luchthaven1.id "
-                    + "INNER JOIN land1 ON land.id = luchthaven1.land_id "
+                    + "INNER JOIN land land1 ON land1.id = luchthaven1.land_id "
                     + "INNER JOIN luchthaven luchthaven2 ON  vlucht.vertrekluchthaven_id = luchthaven2.id " 
-                    + "INNER JOIN land2 ON land.id = luchthaven2.land_id "
+                    + "INNER JOIN land land2 ON land2.id = luchthaven2.land_id "
+                     + "INNER JOIN vliegtuig vliegtuig ON Vliegtuig.id = vlucht.VLIEGTUIG_ID"
+                    + "INNER JOIN Luchtvaartmaatschappij luchtvaartmaatschappij  ON luchtvaartmaatschappij.id = vliegtuig.LUCHTVAARTMAATSCHAPPIJ_ID"
                     + "WHERE vlucht.vertrekluchthaven_id = ?");)
                 
         {
@@ -140,7 +158,21 @@ public class DAVlucht {
                 landVertrek.setId(resultSet.getInt(18));
                 landVertrek.setLandnaam(resultSet.getString(19));
                 
-               
+                vertrekluchthaven.setLand(landVertrek);
+                vlucht.setVertrekluchthaven(vertrekluchthaven);
+                                
+                Vliegtuig vliegtuig = new Vliegtuig();
+                vliegtuig.setId(resultSet.getInt(20));
+                vliegtuig.setVliegtuigtype_id(resultSet.getInt(21));
+                vliegtuig.setLuchtvaartmaatschappij_id(resultSet.getInt(22));
+                
+                Luchtvaartmaatschappij lvms = new Luchtvaartmaatschappij();
+                lvms.setId(resultSet.getInt(23));
+                lvms.setLuchtvaartnaam(resultSet.getString(24));
+                vliegtuig.setLuchtvaartmaatschappij(lvms);
+                
+                vlucht.setVliegtuig(vliegtuig);
+                
                 lijstAlleVluchten.add(vlucht);
             }
         } catch (Exception e) {
@@ -148,6 +180,7 @@ public class DAVlucht {
         }
     return lijstAlleVluchten;
     }
+
      public Vlucht getVluchtByNumber(int code){
         Vlucht vlucht = null;
         
