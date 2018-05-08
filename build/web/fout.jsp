@@ -9,17 +9,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Fout!</title>
     </head>
     <body>
 	
-        <!--Foutmelding Quinten -->
+
         <h1>Er is iets fout gegaan!</h1>
-	
-        
-        <!--Foutmelding Jasper -->
-        <h1>Foutmelding!</h1>
         
         <p>Vul alle velden correct in aub!</p>
+        
+         <a href="index.jsp">Home</a>
     </body>
 </html>
