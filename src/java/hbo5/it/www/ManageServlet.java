@@ -5,6 +5,7 @@
  */
 package hbo5.it.www;
 
+import hbo5.it.www.beans.Passagier;
 import hbo5.it.www.beans.Persoon;
 import hbo5.it.www.beans.Vliegtuigklasse;
 import hbo5.it.www.beans.Vlucht;
@@ -72,6 +73,14 @@ public class ManageServlet extends HttpServlet {
                 request.setAttribute("vlucht", vlucht);
                 request.setAttribute("lijstVliegtuigklasses", lijstVliegtuigklasses);
                 rd = request.getRequestDispatcher("vluchtBoeken.jsp");
+            }
+        } else if (request.getParameter("knopPassagierslijst") != null) {
+            String vluchtCode = request.getParameter("knopPassagierslijst");
+            int code = Integer.parseInt(vluchtCode);
+            ArrayList<Passagier> lijstPassagieren = dapassagier.getPassagiersByVlucht(code);
+            if (lijstPassagieren != null) {
+                request.setAttribute("lijstPassagieren", lijstPassagieren);
+                rd = request.getRequestDispatcher("passagierslijst.jsp");
             }
         }
         if (request.getParameter("MijnVluchten") != null) {
