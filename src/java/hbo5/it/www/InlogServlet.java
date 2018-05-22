@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -50,6 +51,7 @@ public class InlogServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher rd = null;
+        HttpSession session = request.getSession();
 
         if (request.getParameter("InlogKnop") != null) {
             rd = request.getRequestDispatcher("inloggen.jsp");
@@ -59,13 +61,21 @@ public class InlogServlet extends HttpServlet {
 //        String Passwoord = request.getParameter("Passwordtext");
             Persoon persoon = dapersoon.GetPersoon(request.getParameter("Logintext"), request.getParameter("Passwoordtext"));
             if (persoon != null) {
-                request.setAttribute("persoon", persoon);
+                session.setAttribute("persoon", persoon);
+              if(persoon.getSoort() == 'A')
+                {
+                    //Op de gelinkte pagina komen de admin buttons
+                    rd = request.getRequestDispatcher("adminbeheer.jsp");
+                }
+                else{
                 rd = request.getRequestDispatcher("index.jsp");
+                } 
             } else {
-                rd = request.getRequestDispatcher("fout.jsp");
+                rd = request.getRequestDispatcher("Fout.jsp");
             }
         }
         if (request.getParameter("UitlogKnop") != null) {
+            session.removeAttribute("persoon");
             Persoon persoon = null;
             rd = request.getRequestDispatcher("index.jsp");
         }

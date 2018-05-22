@@ -14,7 +14,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Startscherm</title>
     </head>
-    <body>
+    <body>        
+        <%Persoon persoon = (Persoon) session.getAttribute("persoon");%>
+        
+        <%if(persoon != null && persoon.getSoort() == 'P'){%>
+        <form action="ManageServlet">
+            <input type="submit" value="Mijn vluchten" name="MijnVluchten"/>
+            <input type="submit" value="Vlucht annuleren" name="VluchtAnnuleren"/>
+        </form>
+        }%>
         <h1>Paper Flights</h1>
         <p>
             <img src="images/Paperflights.png" alt="afbeelding"/>
@@ -30,7 +38,6 @@
         <form action="InlogServlet">
              <!-- Zet dit er bij voor een de naam van de gebruiker en een inlog of uitlog button te hebben : -->
             
-            <%Persoon persoon = (Persoon) request.getAttribute("persoon");
             if(persoon != null){%>
             <P>
                 <label name="naam"><%=persoon.getVoornaam() %></label>

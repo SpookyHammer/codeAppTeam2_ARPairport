@@ -9,6 +9,7 @@ Groepsleden: Cools Jasper, Gostek Kaân, Leysen Eline, Winkelmans Quinten
 package hbo5.it.www.beans;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -18,7 +19,9 @@ public class Vlucht {
     private int id;
     private String code;
     private Date vertrektijd;
+    private Timestamp vertrekuur;
     private Date aankomsttijd;
+    private Timestamp aankomstuur;
     private int vliegtuig_id;
     private int vertrekluchthaven_id;
     private int aankomstluchthaven_id;
@@ -46,16 +49,32 @@ public class Vlucht {
         return vertrektijd;
     }
 
-    public void setVertrektijd(Date vertrektijd) {
-        this.vertrektijd = vertrektijd;
-    }
-
     public Date getAankomsttijd() {
         return aankomsttijd;
     }
 
+    public void setVertrektijd(Date vertrektijd) {
+        this.vertrektijd = vertrektijd;
+    }
+    
     public void setAankomsttijd(Date aankomsttijd) {
         this.aankomsttijd = aankomsttijd;
+    }
+    
+    public Timestamp getVertrekuur(){
+        return vertrekuur;
+    }
+
+    public Timestamp getAankomstuur(){
+        return aankomstuur;
+    }
+
+    public void setVertrekuur(Timestamp vertrekuur) {
+        this.vertrekuur = vertrekuur;
+    }
+    
+    public void setAankomstuur(Timestamp aankomstuur) {
+        this.aankomstuur = aankomstuur;
     }
 
     public int getVliegtuig_id() {

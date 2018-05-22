@@ -9,10 +9,11 @@ Groepsleden: Cools Jasper, Gostek Kaân, Leysen Eline, Winkelmans Quinten
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import hbo5.it.www.beans.Luchthaven;
+import hbo5.it.www.beans.Luchtvaartmaatschappij;
 import hbo5.it.www.beans.Vlucht;
 import hbo5.it.www.dataaccess.DALuchthaven;
+import hbo5.it.www.dataaccess.DALuchtvaartmaatschappij;
 import hbo5.it.www.dataaccess.DAVlucht;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,9 +46,9 @@ public class ZoekServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     private DAVlucht davlucht = null;
     private DALuchthaven daluchthaven = null;
+    private DALuchtvaartmaatschappij daluchtvaartmaatschappij = null;
 
     @Override
     public void init() throws ServletException {
@@ -62,59 +63,104 @@ public class ZoekServlet extends HttpServlet {
             if (daluchthaven == null) {
                 daluchthaven = new DALuchthaven(url, login, password, driver);
             }
+            if (daluchtvaartmaatschappij == null) {
+                daluchtvaartmaatschappij = new DALuchtvaartmaatschappij(url, login, password, driver);
+            }
         } catch (ClassNotFoundException e) {
             throw new ServletException(e);
         }
     }
 
-    
-    
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher rd = null;
-        
-        if (request.getParameter("OpenZoekpagina") != null) {
+
+           if (request.getParameter("OpenZoekpagina") != null) {
             ArrayList<Luchthaven> lijstAlleLuchthavens = daluchthaven.getAlleLuchthavens();
+            ArrayList<Luchtvaartmaatschappij> lijstAlleLuchtvaartmaatschappijen = daluchtvaartmaatschappij.getAlleLuchtvaartmaatschappijen();
             request.setAttribute("lijstAlleLuchthavens", lijstAlleLuchthavens);
+            request.setAttribute("lijstAlleLuchtvaartmaatschappijen", lijstAlleLuchtvaartmaatschappijen);
             rd = request.getRequestDispatcher("vluchtenZoeken.jsp");
         }
 
-        if (request.getParameter("ZoekKnop") != null) 
-        { 
+        if (request.getParameter("ZoekKnop") != null) {
             if (request.getParameter("naamLuchthaven") != null) {
                 int luchthavenID = Integer.parseInt(request.getParameter("naamLuchthaven"));
-                
-                if (request.getParameter("keuzeLuchthaven").equals("aankomst")) 
-            {
-                ArrayList<Vlucht> lijstAlleBinnenkomendeVluchten = davlucht.getAlleBinnenkomendeVluchten(luchthavenID);
-                
-                if (lijstAlleBinnenkomendeVluchten.size() > 0) {
-                    request.setAttribute("lijstAlleBinnenkomendeVluchten", lijstAlleBinnenkomendeVluchten);
-                    rd = request.getRequestDispatcher("overzichtVluchten.jsp");
+                String keuzeLuchthaven = request.getParameter("keuzeLuchthaven");
+
+                if (request.getParameter("keuzeLuchthaven").equals("aankomst")) {
+                    ArrayList<Vlucht> lijstAlleBinnenkomendeVluchten = davlucht.getAlleBinnenkomendeVluchten(luchthavenID);
+
+                    if (lijstAlleBinnenkomendeVluchten.size() > 0) {
+                        request.setAttribute("lijstAlleBinnenkomendeVluchten", lijstAlleBinnenkomendeVluchten);
+                        rd = request.getRequestDispatcher("overzichtVluchten.jsp");
+                    } else {
+                        String foutmelding = "Geen vluchten gevonden.";
+                        request.setAttribute("foutmelding", foutmelding);
+                        rd = request.getRequestDispatcher("fout.jsp");
+                    }
+
+                } else if (request.getParameter("keuzeLuchthaven").equals("vertrek")) {
+                    ArrayList<Vlucht> lijstAlleVertrekkendeVluchten = davlucht.getAlleVertrekkendeVluchten(luchthavenID);
+
+                    if (lijstAlleVertrekkendeVluchten.size() > 0) {
+                        request.setAttribute("lijstAlleVertrekkendeVluchten", lijstAlleVertrekkendeVluchten);
+                        rd = request.getRequestDispatcher("overzichtVluchten.jsp");
+                    } else {
+                        String foutmelding = "Geen vluchten gevonden.";
+                        request.setAttribute("foutmelding", foutmelding);
+                        rd = request.getRequestDispatcher("fout.jsp");
+                    }
+
+                } else if (request.getParameter("keuzeLuchthaven").equals("maatschappij")) {
+                    int id = Integer.parseInt(request.getParameter("naamMaatschappij"));
+                    ArrayList<Vlucht> lijstAlleVluchtenLuchtvaartmaatschappij = davlucht.getVluchtenByLuchtvaartmaatschappij(id);
+                    if (lijstAlleVluchtenLuchtvaartmaatschappij.size() > 0) {
+                        request.setAttribute("lijstAlleVluchtenLuchtvaartmaatschappij", lijstAlleVluchtenLuchtvaartmaatschappij);
+                        rd = request.getRequestDispatcher("overzichtVluchten.jsp");
+                    } else {
+                        String foutmelding = "Geen vluchten gevonden.";
+                        request.setAttribute("foutmelding", foutmelding);
+                        rd = request.getRequestDispatcher("fout.jsp");
+                    }
                 }
-                else{
-                    String foutmelding = "Geen vluchten gevonden.";
+            }
+        } else if (request.getParameter("ZoekCodeKnop") != null) {
+            if (request.getParameter("code") != null) {
+                String vluchtnummer = request.getParameter("code");
+                Vlucht vlucht = davlucht.getVluchtByNumber(vluchtnummer);
+                if (vlucht != null) {
+                    request.setAttribute("vlucht", vlucht);
+                    // moet later veranderd worden in detail pagina
+                    rd = request.getRequestDispatcher("detailVlucht.jsp");
+                } else {
+                    String foutmelding = "Vluchtnummer is niet valide.";
                     request.setAttribute("foutmelding", foutmelding);
                     rd = request.getRequestDispatcher("fout.jsp");
-                }   
-    
+                }
             }
-            else if (true) {
-//                code vertrekkende vluchten
-            }
-                else{
-                    String foutmelding = "Geen vluchten gevonden.";
+
+        } else if (request.getParameter("ZoekDatumKnop") != null) {
+            if (request.getParameter("datum") != null) {
+                String datumString = request.getParameter("datum");
+                ArrayList<Vlucht> vluchtenDatum = davlucht.getAlleVluchtenByDate(datumString);
+                if (vluchtenDatum.size() != 0) {
+                    request.setAttribute("vluchtenDatum", vluchtenDatum);
+                    rd = request.getRequestDispatcher("overzichtVluchten.jsp");
+                } else {
+                    String foutmelding = "Geen vluchten geboekt op die datum.";
                     request.setAttribute("foutmelding", foutmelding);
                     rd = request.getRequestDispatcher("fout.jsp");
-                }   
+                }
+            } else {
+                String foutmelding = "Ongeldige zoekactie.";
+                request.setAttribute("foutmelding", foutmelding);
+                rd = request.getRequestDispatcher("fout.jsp");
             }
         }
-        
-        
- 
-        rd.forward(request, response);  
-        }
+
+        rd.forward(request, response);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
