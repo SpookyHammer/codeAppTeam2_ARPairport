@@ -24,6 +24,7 @@
                         <td>Naam:</td>
                         <td>Familienaam:</td>
                         <td>Functie:</td>
+                        <td>Luchtvaartmaatschappij:</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,16 +34,21 @@
                             
                     {%>
                     <tr>
+                        <% String Id="bemmaningslid.getId()"; %>
                         <td> <%=bemanningslid.getPersoon().getVoornaam() %></td>
                         <td> <%=bemanningslid.getPersoon().getFamilienaam() %></td>
                         <td> <%=bemanningslid.getFunctie().getFunctienaam() %></td>
-                        <td><button name="Aanpassen" value="<%=bemanningslid.getId() %>">Aanpassen</button></td>
-                        <td><button name="Verwijderen" value="<%=bemanningslid.getId() %>">Verwijderen</button></td>
+                        <td> <%=bemanningslid.getLuchtvaartmaatschappij().getLuchtvaartnaam() %></td>
+                        
+                        <form action="AdminServlet"> 
+                            <td><a href="?OpenBeheerbemanning=Beheren&actie=aanpassen&Id=<%=bemanningslid.getId() %>">Aanpassen</a></td>
+                            <td><a href="?OpenBeheerbemanning=Beheren&actie=verwijderen&Id=<%=bemanningslid.getId() %>">Verwijderen</a></td>
+                        </form>
+
                     </tr>
                     <%}}%>
                 </tbody>
             </table>
-             <!-- EINDE NIEUW -->   
                 <form action="InlogServlet">
              <!-- Zet dit er bij voor een de naam van de gebruiker en een inlog of uitlog button te hebben : -->
             

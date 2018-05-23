@@ -6,7 +6,11 @@
 package hbo5.it.www;
 
 import hbo5.it.www.beans.Bemanningslid;
+import hbo5.it.www.beans.Functie;
+import hbo5.it.www.beans.Luchtvaartmaatschappij;
 import hbo5.it.www.dataaccess.DABemanningslid;
+import hbo5.it.www.dataaccess.DAFunctie;
+import hbo5.it.www.dataaccess.DALuchtvaartmaatschappij;
 import hbo5.it.www.dataaccess.DAPersoon;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,6 +36,8 @@ import javax.servlet.http.HttpSession;
 public class AdminServlet extends HttpServlet {
 
     private DABemanningslid dabemanningslid = null;
+    private DALuchtvaartmaatschappij daluchtvaartmaatschappij = null;
+    private DAFunctie dafunctie = null;
 
     @Override
     public void init() throws ServletException {
@@ -42,6 +48,12 @@ public class AdminServlet extends HttpServlet {
             String driver = getInitParameter("driver");
             if (dabemanningslid == null) {
                 dabemanningslid = new DABemanningslid(url, login, password, driver);
+            }
+            if (daluchtvaartmaatschappij == null) {
+                daluchtvaartmaatschappij = new DALuchtvaartmaatschappij(url, login, password, driver);
+            }
+            if (dafunctie == null) {
+                dafunctie = new DAFunctie(url, login, password, driver);
             }
         } catch (ClassNotFoundException e) {
             throw new ServletException(e);
@@ -59,6 +71,19 @@ public class AdminServlet extends HttpServlet {
 
             rd = request.getRequestDispatcher("beheerBemanning.jsp");
         }
+        if(request.getParameter("AanpasKnop") != null)
+        {
+            ArrayList<Luchtvaartmaatschappij> lijstAlleLuchtvaartmaatschappijen = daluchtvaartmaatschappij.getAlleLuchtvaartmaatschappijen();
+            request.setAttribute("lijstAlleLuchtvaartmaatschappijen", lijstAlleLuchtvaartmaatschappijen);
+            ArrayList<Functie> lijstAlleFuncties = dafunctie.getFuncties();
+            request.setAttribute("lijstAlleFuncties", lijstAlleFuncties);
+            dabemanningslid.updateBemanningslid(request.getParameter("Id"), request.getParameter("functies"), request.getParameter("maatschappij"));
+            ArrayList<Bemanningslid> lijstalleBemanningsleden = dabemanningslid.getBemanningsleden();
+            request.setAttribute("lijstalleBemanningsleden", lijstalleBemanningsleden);
+
+            rd = request.getRequestDispatcher("beheerBemanning.jsp");
+            
+        }
         
         if(request.getParameter("actie") != null)
         {
@@ -69,13 +94,15 @@ public class AdminServlet extends HttpServlet {
         
                 rd = request.getRequestDispatcher("aanpassenBemanning.jsp");
             }
-            /*if(request.getParameter("actie") == "verwijderen" )
+            if(request.getParameter("actie") == "verwijderen" )
             {
-                //dabemanningslid.DeleteBemanningslid(request.getParameter("Id"));
+                dabemanningslid.DeleteBemanningslid(request.getParameter("Id"));
                 //Check of hij nog ergens aan verbonden is.
         
-                rd = request.getRequestDispatcher("aanpassenBemanning.jsp");
-            }*/
+                ArrayList<Bemanningslid> lijstalleBemanningsleden = dabemanningslid.getBemanningsleden();
+                request.setAttribute("lijstalleBemanningsleden", lijstalleBemanningsleden);
+                rd = request.getRequestDispatcher("beheerBemanning.jsp");
+            }
         }
         rd.forward(request, response);
     }

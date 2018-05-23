@@ -11,6 +11,7 @@ import hbo5.it.www.beans.Luchtvaartmaatschappij;
 import hbo5.it.www.beans.Persoon;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -20,31 +21,33 @@ import java.util.ArrayList;
  * @author c1045286
  */
 public class DABemanningslid {
+
     private final String url, login, password;
 
-public DABemanningslid (String url, String login, String password, String driver)   throws ClassNotFoundException {
+    public DABemanningslid(String url, String login, String password, String driver) throws ClassNotFoundException {
         Class.forName(driver);
         this.url = url;
-	this.login = login;
-	this.password = password;
+        this.login = login;
+        this.password = password;
     }
-public Bemanningslid getBemanningslid(String id) {
+
+    public Bemanningslid getBemanningslid(String id) {
         Bemanningslid bemanningslid = null;
 
         try (
-             Connection connection = DriverManager.getConnection(url, login, password);
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM bemanningslid JOIN luchtvaartmaatschappij ON bemanningslid.luchtvaartmaatschappij_id = luchtvaartmaatschappij.id "
-                     + "JOIN persoon ON bemanningslid.persoon_id = persoon.id"
-                     + "JOIN functie ON bemanningslid.functie_id = functie.id WHERE id = ?");) 
-            {
-            if (resultSet.next()) {
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM bemanningslid JOIN luchtvaartmaatschappij ON bemanningslid.luchtvaartmaatschappij_id = luchtvaartmaatschappij.id "
+                        + "JOIN persoon ON bemanningslid.persoon_id = persoon.id "
+                        + "JOIN functie ON bemanningslid.functie_id = functie.id WHERE bemanningslid.id = ?");) {
+            statement.setString(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
                 bemanningslid = new Bemanningslid();
                 bemanningslid.setId(resultSet.getInt("id"));
                 bemanningslid.setFunctie_id(resultSet.getInt("functie_id"));
                 bemanningslid.setLuchtvaartmaatschappij_id(resultSet.getInt("luchtvaartmaatschappij_id"));
                 bemanningslid.setPersoon_id(resultSet.getInt("persoon_id"));
- 
+
                 // FK Functie
                 Functie functie = new Functie();
                 functie.setId(resultSet.getInt("functie_id"));
@@ -74,9 +77,7 @@ public Bemanningslid getBemanningslid(String id) {
                 persoon.setWoonplaats(resultSet.getString("woonplaats"));
                 // bemanningslid + Luchtvaartmaatschappij
                 bemanningslid.setPersoon(persoon);
-                
-                
-                
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,25 +85,57 @@ public Bemanningslid getBemanningslid(String id) {
         return bemanningslid;
     }
 
+    public boolean updateBemanningslid(String id, String functieid, String luchtvaartmid) {
+        boolean resultaat = true;
 
-public ArrayList<Bemanningslid> getBemanningsleden() {
-    ArrayList<Bemanningslid> lijstalleBemanningsleden = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("Update bemanningslid SET bemanningslid.functie_id = ?, bemanningslid.luchtvaartmaatschappij_id = ? WHERE bemanningslid.id = ?");) {
+
+            statement.setString(1, functieid);
+            statement.setString(2, luchtvaartmid);
+            statement.setString(3, id);
+            statement.executeUpdate();
+
+        } catch (Exception e) {
+            resultaat = false;
+            e.printStackTrace();
+        }
+        return resultaat;
+    }
+
+    public boolean DeleteBemanningslid(String id) {
+        boolean resultaat = true;
+
+        try (Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("Delete from bemanningslid WHERE bemanningslid.id = ?");) {
+
+            statement.setString(1, id);
+            statement.executeUpdate();
+
+        } catch (Exception e) {
+            resultaat = false;
+            e.printStackTrace();
+        }
+        return resultaat;
+    }
+
+    public ArrayList<Bemanningslid> getBemanningsleden() {
+        ArrayList<Bemanningslid> lijstalleBemanningsleden = new ArrayList<>();
         Bemanningslid bemanningslid = null;
 
         try (
-             Connection connection = DriverManager.getConnection(url, login, password);
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM bemanningslid JOIN luchtvaartmaatschappij ON bemanningslid.luchtvaartmaatschappij_id = luchtvaartmaatschappij.id "
-                     + "JOIN persoon ON bemanningslid.persoon_id = persoon.id "
-                     + "JOIN functie ON bemanningslid.functie_id = functie.id");) 
-            {
+                Connection connection = DriverManager.getConnection(url, login, password);
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM bemanningslid JOIN luchtvaartmaatschappij ON bemanningslid.luchtvaartmaatschappij_id = luchtvaartmaatschappij.id "
+                        + "JOIN persoon ON bemanningslid.persoon_id = persoon.id "
+                        + "JOIN functie ON bemanningslid.functie_id = functie.id");) {
             while (resultSet.next()) {
                 bemanningslid = new Bemanningslid();
                 bemanningslid.setId(resultSet.getInt("id"));
                 bemanningslid.setFunctie_id(resultSet.getInt("functie_id"));
                 bemanningslid.setLuchtvaartmaatschappij_id(resultSet.getInt("luchtvaartmaatschappij_id"));
                 bemanningslid.setPersoon_id(resultSet.getInt("persoon_id"));
- 
+
                 // FK Functie
                 Functie functie = new Functie();
                 functie.setId(resultSet.getInt("functie_id"));
@@ -132,16 +165,14 @@ public ArrayList<Bemanningslid> getBemanningsleden() {
                 persoon.setWoonplaats(resultSet.getString("woonplaats"));
                 // bemanningslid + Luchtvaartmaatschappij
                 bemanningslid.setPersoon(persoon);
-                
+
                 lijstalleBemanningsleden.add(bemanningslid);
-                
-                
-                
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return lijstalleBemanningsleden;
     }
 }
