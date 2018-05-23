@@ -55,7 +55,7 @@
                     <% }
                         if (persoon != null && persoon.getSoort() == 'B') {%>
             <form action="ManageServlet">
-                <td> <button type="submit" value="<%=vlucht.getCode()%>" name="knopPassagierslijst" >Passagierslijst</button> </td>
+                <td> <button type="submit" value="<%=vlucht.getCode()%>" name="knopPassagierslijstZoeken" >Passagierslijst</button> </td>
             </form>
             <%}%>
         </tr>
@@ -74,7 +74,7 @@
             <%}
                 if (persoon != null && persoon.getSoort() == 'B') {%>
         <form action="ManageServlet">
-            <td> <button type="submit" value="<%=vlucht.getCode()%>" name="knopPassagierslijst" >Passagierslijst</button> </td>
+            <td> <button type="submit" value="<%=vlucht.getCode()%>" name="knopPassagierslijstZoeken" >Passagierslijst</button> </td>
         </form>
         <%}%>
     </tr>
@@ -93,7 +93,7 @@
         <%}
             if (persoon != null && persoon.getSoort() == 'B') {%>
     <form action="ManageServlet">
-        <td> <button type="submit" value="<%=vlucht.getCode()%>" name="knopPassagierslijst" >Passagierslijst</button> </td>
+        <td> <button type="submit" value="<%=vlucht.getCode()%>" name="knopPassagierslijstZoeken" >Passagierslijst</button> </td>
     </form>
     <%}%>
 </tr>                   
@@ -117,7 +117,7 @@
 <%} else if (vluchtenDatum != null) {
     for (Vlucht vlucht : vluchtenDatum) {%>
 <tr>
-    <td> <%=vlucht.getCode()%></td>
+    <td><%=vlucht.getCode()%></td>
     <td><%=vlucht.getVertrekluchthaven().getLuchthavennaam()%></td>
     <td> <%=vlucht.getVertrektijd()%></td>
     <td><%=vlucht.getAankomstluchthaven().getLuchthavennaam()%></td>
@@ -125,9 +125,9 @@
     <%if (persoon != null && persoon.getSoort() == 'P') {%>
     <td> <button value="<%=vlucht.getCode()%>" name="knopVluchtBoeken" >Vlucht boeken</button> </td>
     <%}
-            if (persoon != null && persoon.getSoort() == 'B') {%>
+        if (persoon != null && persoon.getSoort() == 'B') {%>
 <form action="ManageServlet">
-    <td> <button type="submit" value="<%=vlucht.getCode()%>" name="knopPassagierslijst" >Passagierslijst</button> </td>
+    <td> <input type="submit" value="<%=vlucht.getCode()%>" name="knopPassagierslijstZoeken" >Passagierslijst</button> </td>
 </form>
 <%}%>
 </tr>                   

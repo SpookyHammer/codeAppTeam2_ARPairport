@@ -35,8 +35,15 @@
                     <%if (passagier.getIngeschreven() == 0) {%>
                     <td><p>No</p></td>
                     <%} else {%>
-                    <td><p>No</p></td>
+                    <td><p>Yes</p></td>
                     <%}%>
+                    <%if (passagier.getIngecheckt()== 0) {%>
+                    <td><p>No</p></td>
+                    <%} else {%>
+                    <td><p>Yes</p></td>
+                    <%}%>
+                    <td><p><%=passagier.getPlaats()%></p></td>
+                    <td><p><%=passagier.getVliegtuigklasse().getKlassenaam()%></p></td>
 
                 </tr>
                 <%}

@@ -74,10 +74,10 @@ public class ManageServlet extends HttpServlet {
                 request.setAttribute("lijstVliegtuigklasses", lijstVliegtuigklasses);
                 rd = request.getRequestDispatcher("vluchtBoeken.jsp");
             }
-        } else if (request.getParameter("knopPassagierslijst") != null) {
-            String vluchtCode = request.getParameter("knopPassagierslijst");
-            int code = Integer.parseInt(vluchtCode);
-            ArrayList<Passagier> lijstPassagieren = dapassagier.getPassagiersByVlucht(code);
+        }
+        if (request.getParameter("knopPassagierslijst") != null) {
+            String vluchtCode = request.getParameter("Vluchtnr");
+            ArrayList<Passagier> lijstPassagieren = dapassagier.getPassagiersByVlucht(vluchtCode);
             if (lijstPassagieren != null) {
                 request.setAttribute("lijstPassagieren", lijstPassagieren);
                 rd = request.getRequestDispatcher("passagierslijst.jsp");
@@ -87,7 +87,14 @@ public class ManageServlet extends HttpServlet {
             //Persoon persoon = (Persoon) session.getAttribute("persoon");
             //Vlucht vlucht = davlucht.getAlleVluchtenVanPassagier()
         }
-
+        if (request.getParameter("knopPassagierslijstZoeken") != null) {
+            String vluchtCode = request.getParameter("knopPassagierslijstZoeken");
+            ArrayList<Passagier> lijstPassagieren = dapassagier.getPassagiersByVlucht(vluchtCode);
+            if (lijstPassagieren != null) {
+                request.setAttribute("lijstPassagieren", lijstPassagieren);
+                rd = request.getRequestDispatcher("passagierslijst.jsp");
+            }
+        }
         rd.forward(request, response);
     }
 

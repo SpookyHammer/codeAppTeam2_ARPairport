@@ -30,7 +30,7 @@ public class DAPassagier {
         this.password = password;
     }
 
-    public ArrayList<Passagier> getPassagiersByVlucht(int vluchtid) {
+    public ArrayList<Passagier> getPassagiersByVlucht(String vluchtCode) {
         ArrayList<Passagier> passagiers = new ArrayList<Passagier>();
         Passagier passagier = null;
 
@@ -42,7 +42,7 @@ public class DAPassagier {
                         + "INNER JOIN Vlucht vlucht ON vlucht.id = passagier.vlucht_id "
                         + "INNER JOIN Persoon persoon ON persoon.id = passagier.persoon_id  "
                         + "WHERE vlucht.code = ?");) {
-            statement.setInt(1, vluchtid);
+            statement.setString(1, vluchtCode);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 passagier = new Passagier();
@@ -79,6 +79,9 @@ public class DAPassagier {
                 persoon.setLogin(resultSet.getString(26));
                 persoon.setPaswoord(resultSet.getString(27));
                 persoon.setSoort(resultSet.getString(28).charAt(0));
+                passagier.setPersoon(persoon);
+                
+                passagiers.add(passagier);
             }
         } catch (Exception e) {
             e.printStackTrace();

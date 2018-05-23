@@ -48,7 +48,18 @@
             <input type="submit" value="Inloggen" name="InlogKnop"/>
             <%}%>
         </form>        
+        
+        <form action="ManageServlet">
+            
+           <%     if (persoon != null) {
 
+                    if (persoon.getSoort() == 'B') {%>
+            <input type="submit" value="passagierslijst" name="knopPassagierslijst"/>  
+            <input type="text" name="Vluchtnr"/>
+            <%}
+                   }%>
+        </form>
+        
         <a href="registratie.jsp">Registratietest</a>
     </p>
 </body>
