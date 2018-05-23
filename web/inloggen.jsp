@@ -24,7 +24,7 @@
                    </p>
                    <p>
                         <label for="passwoord">Paswoord:</label>
-                        <input type="text" name="Passwoordtext" value="" id="Passwoordtext"/>
+                        <input type="password" name="Passwoordtext" value="" id="Passwoordtext"/>
                    </p>
                    <input type="submit" name="Loginknop" value="Aanmelden"/>
             </form>
