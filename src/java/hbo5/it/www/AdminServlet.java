@@ -60,12 +60,22 @@ public class AdminServlet extends HttpServlet {
             rd = request.getRequestDispatcher("beheerBemanning.jsp");
         }
         
-        if(request.getParameter("Aanpassen") != null )
+        if(request.getParameter("actie") != null)
         {
-        Bemanningslid bemannigslid = dabemanningslid.getBemanningslid(request.getParameter("Aanpassen"));
-        request.setAttribute("bemanningslid", bemannigslid);
+            if(request.getParameter("actie").equals("aanpassen") )
+            {
+                Bemanningslid bemanningslid = dabemanningslid.getBemanningslid(request.getParameter("Id"));
+                request.setAttribute("bemanningslid", bemanningslid);
         
-        rd = request.getRequestDispatcher("aanpassenBemanning.jsp");
+                rd = request.getRequestDispatcher("aanpassenBemanning.jsp");
+            }
+            /*if(request.getParameter("actie") == "verwijderen" )
+            {
+                //dabemanningslid.DeleteBemanningslid(request.getParameter("Id"));
+                //Check of hij nog ergens aan verbonden is.
+        
+                rd = request.getRequestDispatcher("aanpassenBemanning.jsp");
+            }*/
         }
         rd.forward(request, response);
     }

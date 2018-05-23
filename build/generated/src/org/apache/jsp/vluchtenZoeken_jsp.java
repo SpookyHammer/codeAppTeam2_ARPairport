@@ -61,11 +61,17 @@ public final class vluchtenZoeken_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("        <title>Vluchten zoeken</title>\r\n");
       out.write("    </head>\r\n");
       out.write("    <script>\r\n");
-      out.write("        String selectedValue = \"\";\r\n");
       out.write("        function changeFunction(){\r\n");
-      out.write("            selectedValue = selectBoxID.options[selectBoxID.selectedIndex].value;\r\n");
+      out.write("           var dropdown = document.getElementById(\"selectBoxID\")\r\n");
+      out.write("           var selectedValue = dropdown.options[dropdown.selectedIndex].value;\r\n");
+      out.write("           document.getElementById(\"divLuchtvaartmaatschappij\").style.display = \"none\";\r\n");
+      out.write("           document.getElementById(\"divLuchthaven\").style.display = \"none\";\r\n");
       out.write("           \r\n");
-      out.write("        }\r\n");
+      out.write("           if (selectedValue == \"maatschappij\" ) \r\n");
+      out.write("               document.getElementById(\"divLuchtvaartmaatschappij\").style.display = \"block\"; \r\n");
+      out.write("           if (selectedValue == \"vertrek\" || selectedValue == \"aankomst\") \r\n");
+      out.write("               document.getElementById(\"divLuchthaven\").style.display = \"block\"; \r\n");
+      out.write("    }\r\n");
       out.write("        \r\n");
       out.write("        \r\n");
       out.write("    </script>\r\n");
@@ -90,19 +96,15 @@ ArrayList<Luchtvaartmaatschappij> lijstAlleLuchtvaartmaatschappijen = (ArrayList
       out.write("                    <option value=\"maatschappij\">Luchtvaartmaatschappij</option>\r\n");
       out.write("                </select>\r\n");
       out.write("            </p>\r\n");
-      out.write("\r\n");
-      out.write("            <!-- moet nog aangepast worden, dit is nog niet werkende, we moeten kunnen gebruik maken van de function? -->\r\n");
-      out.write("            ");
-if (lijstAlleLuchthavens != null) {
-      out.write("\r\n");
-      out.write("            <p> <!-- We gebruiken de value van de geslecteerde luchthaven voor zowel de methode van binnenkomende vluchten als vertrekkende vluchten in de zoekServlet -->\r\n");
-      out.write("                <label for=\"naamLuchthaven\">Naam luchthaven:</label>\r\n");
-      out.write("                <select name =\"naamLuchthaven\">\r\n");
-      out.write("                    <option value=\"0\">---Kies hier je luchthaven---</option>\r\n");
-      out.write("                    ");
+      out.write("            <div style=\"display:none;\" id=\"divLuchthaven\">\r\n");
+      out.write("                <p> <!-- We gebruiken de value van de geslecteerde luchthaven voor zowel de methode van binnenkomende vluchten als vertrekkende vluchten in de zoekServlet -->\r\n");
+      out.write("                    <label for=\"naamLuchthaven\">Naam luchthaven:</label>\r\n");
+      out.write("                    <select name =\"naamLuchthaven\">\r\n");
+      out.write("                        <option value=\"0\">---Kies hier je luchthaven---</option>\r\n");
+      out.write("                        ");
  for (Luchthaven luchthaven : lijstAlleLuchthavens) {
       out.write("\r\n");
-      out.write("                    <option value=\"");
+      out.write("                        <option value=\"");
       out.print(luchthaven.getId());
       out.write('"');
       out.write('>');
@@ -111,37 +113,31 @@ if (lijstAlleLuchthavens != null) {
       out.write(' ');
       out.print(luchthaven.getLand().getLandnaam());
       out.write(" </option>\r\n");
-      out.write("                    ");
+      out.write("                        ");
 }
       out.write("\r\n");
-      out.write("                </select>\r\n");
-      out.write("            </p>\r\n");
-      out.write("            ");
-}
-            
-            if (lijstAlleLuchtvaartmaatschappijen != null) {
-      out.write(" \r\n");
-      out.write("            \r\n");
-      out.write("            <p>\r\n");
-      out.write("                <label for=\"naamMaatschappij\">Naam luchtvaartmaatschappij:</label>\r\n");
-      out.write("                <select name=\"naamMaatschappij\">\r\n");
-      out.write("                    ");
+      out.write("                    </select>\r\n");
+      out.write("                </p>\r\n");
+      out.write("            </div>\r\n");
+      out.write("            <div style=\"display:none;\" id=\"divLuchtvaartmaatschappij\">\r\n");
+      out.write("                <p>\r\n");
+      out.write("                    <label for=\"naamMaatschappij\">Naam luchtvaartmaatschappij:</label>\r\n");
+      out.write("                    <select name=\"naamMaatschappij\">\r\n");
+      out.write("                        ");
  for (Luchtvaartmaatschappij maatschappij : lijstAlleLuchtvaartmaatschappijen) {
       out.write("\r\n");
-      out.write("                    <option value=\"");
+      out.write("                            <option value=\"");
       out.print(maatschappij.getId());
       out.write('"');
       out.write('>');
       out.print(maatschappij.getLuchtvaartnaam());
       out.write("</option>\r\n");
-      out.write("                    ");
+      out.write("                        ");
 }
       out.write("\r\n");
-      out.write("                </select>\r\n");
-      out.write("            </p>\r\n");
-      out.write("            ");
-}
-      out.write("\r\n");
+      out.write("                    </select>\r\n");
+      out.write("                </p>\r\n");
+      out.write("            </div>\r\n");
       out.write("            <input type=\"submit\" value=\"Zoeken\" name=\"ZoekKnop\"/>\r\n");
       out.write("        </form> \r\n");
       out.write("\r\n");

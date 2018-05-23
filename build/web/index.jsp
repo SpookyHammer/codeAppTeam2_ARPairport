@@ -16,13 +16,13 @@
     </head>
     <body>        
         <%Persoon persoon = (Persoon) session.getAttribute("persoon");%>
-        
-        <%if(persoon != null && persoon.getSoort() == 'P'){%>
+
+        <%if (persoon != null && persoon.getSoort() == 'P') { %>
         <form action="ManageServlet">
             <input type="submit" value="Mijn vluchten" name="MijnVluchten"/>
             <input type="submit" value="Vlucht annuleren" name="VluchtAnnuleren"/>
         </form>
-        }%>
+        <% } %>
         <h1>Paper Flights</h1>
         <p>
             <img src="images/Paperflights.png" alt="afbeelding"/>
@@ -34,22 +34,22 @@
         <form action="ZoekServlet">
             <input type="submit" value="Vluchten Zoeken" name="OpenZoekpagina"/>
         </form>      
-        
+
         <form action="InlogServlet">
-             <!-- Zet dit er bij voor een de naam van de gebruiker en een inlog of uitlog button te hebben : -->
-            
-            if(persoon != null){%>
+            <!-- Zet dit er bij voor een de naam van de gebruiker en een inlog of uitlog button te hebben : -->
+
+            <% if(persoon != null){%>
             <P>
-                <label name="naam"><%=persoon.getVoornaam() %></label>
-                <label name="famillienaam"><%=persoon.getFamilienaam() %></label>
+                <label name="naam"><%=persoon.getVoornaam()%></label>
+                <label name="famillienaam"><%=persoon.getFamilienaam()%></label>
             </p>
             <input type="submit" value="Uitloggen" name="UitlogKnop"/>
-           <%} else {%>
+            <%} else {%>
             <input type="submit" value="Inloggen" name="InlogKnop"/>
             <%}%>
         </form>        
-        
+
         <a href="registratie.jsp">Registratietest</a>
-        </p>
-    </body>
+    </p>
+</body>
 </html>

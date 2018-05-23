@@ -64,7 +64,7 @@ ArrayList<Vlucht> lijstAlleBinnenkomendeVluchten = (ArrayList<Vlucht>) request.g
 ArrayList<Vlucht> lijstAlleVertrekkendeVluchten = (ArrayList<Vlucht>) request.getAttribute("lijstAlleVertrekkendeVluchten");
       out.write("\r\n");
       out.write("        ");
-ArrayList<Vlucht> lijstAlleVluchtenLuchtvaartmaatschappij = (ArrayList<Vlucht>)request.getAttribute("lijstAlleVluchtenLuchtvaartmaatschappij");
+ArrayList<Vlucht> lijstAlleVluchtenLuchtvaartmaatschappij = (ArrayList<Vlucht>) request.getAttribute("lijstAlleVluchtenLuchtvaartmaatschappij");
       out.write("\r\n");
       out.write("        ");
 Persoon persoon = (Persoon) session.getAttribute("persoon");
@@ -75,146 +75,36 @@ Vlucht vlucht2 = (Vlucht) request.getAttribute("vlucht");
       out.write("        ");
 ArrayList<Vlucht> vluchtenDatum = (ArrayList<Vlucht>) request.getAttribute("vluchtenDatum");
       out.write("\r\n");
-      out.write("        \r\n");
+      out.write("\r\n");
       out.write("        <h1>Overzicht vluchten</h1>\r\n");
-      out.write("        \r\n");
+      out.write("\r\n");
       out.write("        <table border=\"1\" cellpadding=\"3\">\r\n");
-      out.write("                <thead>\r\n");
-      out.write("                    <tr>\r\n");
-      out.write("                        <td>Vluchtnummer:</td>\r\n");
-      out.write("                        <td>Vertrek luchthaven:</td>\r\n");
-      out.write("                        <td width=\"100\">Geplande vertrektijd:</td>\r\n");
-      out.write("                        <td>Aankomst luchthaven:</td>\r\n");
-      out.write("                        <td>Geplande aankomsttijd:</td>\r\n");
-      out.write("                        ");
-if (persoon != null && persoon.getSoort() == 'P') {
-      out.write("\r\n");
-      out.write("                        <td> Boek vlucht </td>\r\n");
-      out.write("                        ");
-}
-      out.write("\r\n");
-      out.write("                        \r\n");
-      out.write("                    </tr>\r\n");
-      out.write("                </thead>\r\n");
-      out.write("                <tbody>\r\n");
-      out.write("                    \r\n");
-      out.write("                        ");
-  if (lijstAlleBinnenkomendeVluchten != null) {
-                        for (Vlucht vlucht : lijstAlleBinnenkomendeVluchten)                            
-                    {
-      out.write("\r\n");
-      out.write("                    <tr>\r\n");
-      out.write("                        <td> ");
-      out.print(vlucht.getCode());
-      out.write("</td>\r\n");
-      out.write("                        <td>");
-      out.print(vlucht.getVertrekluchthaven().getLuchthavennaam() );
-      out.write("</td>\r\n");
-      out.write("                        <td> ");
-      out.print(vlucht.getVertrektijd() );
-      out.write("</td>\r\n");
-      out.write("                        <td>");
-      out.print(vlucht.getAankomstluchthaven().getLuchthavennaam() );
-      out.write("</td>\r\n");
-      out.write("                        <td> ");
-      out.print(vlucht.getAankomsttijd() );
-      out.write("</td> \r\n");
-      out.write("                        ");
-if (persoon != null && persoon.getSoort() == 'P') {
-      out.write("\r\n");
-      out.write("                        <td> <button value=\"");
-      out.print(vlucht.getCode());
-      out.write("\" name=\"knopVluchtBoeken\" >Vlucht boeken</button> </td>\r\n");
-      out.write("                        ");
-}
-      out.write("\r\n");
-      out.write("                    </tr>\r\n");
-      out.write("                    \r\n");
-      out.write("                    ");
-}}else if (lijstAlleVertrekkendeVluchten != null) {
-                    for (Vlucht vlucht : lijstAlleVertrekkendeVluchten) {
-      out.write("\r\n");
-      out.write("                    <tr>\r\n");
-      out.write("                        <td> ");
-      out.print(vlucht.getCode());
-      out.write("</td>\r\n");
-      out.write("                        <td>");
-      out.print(vlucht.getVertrekluchthaven().getLuchthavennaam() );
-      out.write("</td>\r\n");
-      out.write("                        <td> ");
-      out.print(vlucht.getVertrektijd() );
-      out.write("</td>\r\n");
-      out.write("                        <td>");
-      out.print(vlucht.getAankomstluchthaven().getLuchthavennaam() );
-      out.write("</td>\r\n");
-      out.write("                        <td> ");
-      out.print(vlucht.getAankomsttijd() );
-      out.write("</td>\r\n");
-      out.write("                        ");
-if (persoon != null && persoon.getSoort() == 'P') {
-      out.write("\r\n");
-      out.write("                        <td> <button value=\"");
-      out.print(vlucht.getCode());
-      out.write("\" name=\"knopVluchtBoeken\" >Vlucht boeken</button> </td>\r\n");
-      out.write("                        ");
-}
-      out.write("\r\n");
-      out.write("                    </tr>\r\n");
-      out.write("                    \r\n");
-      out.write("                    ");
-}}else if (lijstAlleVluchtenLuchtvaartmaatschappij != null) {
-                    for (Vlucht vlucht : lijstAlleVluchtenLuchtvaartmaatschappij) {
-      out.write("\r\n");
-      out.write("                    <tr>\r\n");
-      out.write("                        <td> ");
-      out.print(vlucht.getCode());
-      out.write("</td>\r\n");
-      out.write("                        <td>");
-      out.print(vlucht.getVertrekluchthaven().getLuchthavennaam() );
-      out.write("</td>\r\n");
-      out.write("                        <td> ");
-      out.print(vlucht.getVertrektijd() );
-      out.write("</td>\r\n");
-      out.write("                        <td>");
-      out.print(vlucht.getAankomstluchthaven().getLuchthavennaam() );
-      out.write("</td>\r\n");
-      out.write("                        <td> ");
-      out.print(vlucht.getAankomsttijd() );
-      out.write("</td> \r\n");
-      out.write("                        ");
-if (persoon != null && persoon.getSoort() == 'P') {
-      out.write("\r\n");
-      out.write("                        <td> <button value=\"");
-      out.print(vlucht.getCode());
-      out.write("\" name=\"knopVluchtBoeken\" >Vlucht boeken</button> </td>\r\n");
-      out.write("                        ");
-}
-      out.write("\r\n");
-      out.write("                    </tr>                   \r\n");
-      out.write("                    ");
-}
-                        } else if (vlucht2 != null) {
-      out.write("\r\n");
+      out.write("            <thead>\r\n");
       out.write("                <tr>\r\n");
-      out.write("                    <td> ");
-      out.print(vlucht2.getCode());
-      out.write("</td>\r\n");
-      out.write("                    <td>");
-      out.print(vlucht2.getVertrekluchthaven().getLuchthavennaam());
-      out.write("</td>\r\n");
-      out.write("                    <td> ");
-      out.print(vlucht2.getVertrektijd());
-      out.write("</td>\r\n");
-      out.write("                    <td>");
-      out.print(vlucht2.getAankomstluchthaven().getLuchthavennaam());
-      out.write("</td>\r\n");
-      out.write("                    <td> ");
-      out.print(vlucht2.getAankomsttijd());
-      out.write("</td> \r\n");
-      out.write("                </tr>                   \r\n");
+      out.write("                    <td>Vluchtnummer:</td>\r\n");
+      out.write("                    <td>Vertrek luchthaven:</td>\r\n");
+      out.write("                    <td width=\"100\">Geplande vertrektijd:</td>\r\n");
+      out.write("                    <td>Aankomst luchthaven:</td>\r\n");
+      out.write("                    <td>Geplande aankomsttijd:</td>\r\n");
+      out.write("                    ");
+if (persoon != null && persoon.getSoort() == 'P') {
+      out.write("\r\n");
+      out.write("                    <td> Boek vlucht </td>\r\n");
+      out.write("                    ");
+}
+                        if (persoon != null && persoon.getSoort() == 'B') {
+      out.write("\r\n");
+      out.write("                    <td> Bekijk Passagierslijst </td>\r\n");
+      out.write("                    ");
+}
+      out.write(" \r\n");
+      out.write("                </tr>\r\n");
+      out.write("            </thead>\r\n");
+      out.write("            <tbody>\r\n");
+      out.write("\r\n");
       out.write("                ");
-} else if (vluchtenDatum != null) {
-                        for (Vlucht vlucht : vluchtenDatum) {
+  if (lijstAlleBinnenkomendeVluchten != null) {
+                        for (Vlucht vlucht : lijstAlleBinnenkomendeVluchten) {
       out.write("\r\n");
       out.write("                <tr>\r\n");
       out.write("                    <td> ");
@@ -232,43 +122,216 @@ if (persoon != null && persoon.getSoort() == 'P') {
       out.write("                    <td> ");
       out.print(vlucht.getAankomsttijd());
       out.write("</td> \r\n");
-      out.write("                </tr>                   \r\n");
-      out.write("                ");
-}
-                        }
+      out.write("                    ");
+if (persoon != null && persoon.getSoort() == 'P') {
       out.write("\r\n");
-      out.write("                </tbody>\r\n");
-      out.write("            </table>\r\n");
-      out.write("             \r\n");
-      out.write("                <form action=\"InlogServlet\">\r\n");
-      out.write("             <!-- Zet dit er bij voor een de naam van de gebruiker en een inlog of uitlog button te hebben : -->\r\n");
-      out.write("            \r\n");
-      out.write("            \r\n");
+      out.write("                    <td> <button value=\"");
+      out.print(vlucht.getCode());
+      out.write("\" name=\"knopVluchtBoeken\" >Vlucht boeken</button> </td>\r\n");
+      out.write("                    ");
+ }
+                        if (persoon != null && persoon.getSoort() == 'B') {
+      out.write("\r\n");
+      out.write("            <form action=\"ManageServlet\">\r\n");
+      out.write("                <td> <button type=\"submit\" value=\"");
+      out.print(vlucht.getCode());
+      out.write("\" name=\"knopPassagierslijst\" >Passagierslijst</button> </td>\r\n");
+      out.write("            </form>\r\n");
       out.write("            ");
-if(persoon != null){
+}
       out.write("\r\n");
-      out.write("            <P>\r\n");
-      out.write("                <label name=\"naam\">");
-      out.print(persoon.getVoornaam() );
+      out.write("        </tr>\r\n");
+      out.write("\r\n");
+      out.write("        ");
+}
+        } else if (lijstAlleVertrekkendeVluchten != null) {
+            for (Vlucht vlucht : lijstAlleVertrekkendeVluchten) {
+      out.write("\r\n");
+      out.write("        <tr>\r\n");
+      out.write("            <td> ");
+      out.print(vlucht.getCode());
+      out.write("</td>\r\n");
+      out.write("            <td>");
+      out.print(vlucht.getVertrekluchthaven().getLuchthavennaam());
+      out.write("</td>\r\n");
+      out.write("            <td> ");
+      out.print(vlucht.getVertrektijd());
+      out.write("</td>\r\n");
+      out.write("            <td>");
+      out.print(vlucht.getAankomstluchthaven().getLuchthavennaam());
+      out.write("</td>\r\n");
+      out.write("            <td> ");
+      out.print(vlucht.getAankomsttijd());
+      out.write("</td>\r\n");
+      out.write("            ");
+if (persoon != null && persoon.getSoort() == 'P') {
+      out.write("\r\n");
+      out.write("            <td> <button value=\"");
+      out.print(vlucht.getCode());
+      out.write("\" name=\"knopVluchtBoeken\" >Vlucht boeken</button> </td>\r\n");
+      out.write("            ");
+}
+                if (persoon != null && persoon.getSoort() == 'B') {
+      out.write("\r\n");
+      out.write("        <form action=\"ManageServlet\">\r\n");
+      out.write("            <td> <button type=\"submit\" value=\"");
+      out.print(vlucht.getCode());
+      out.write("\" name=\"knopPassagierslijst\" >Passagierslijst</button> </td>\r\n");
+      out.write("        </form>\r\n");
+      out.write("        ");
+}
+      out.write("\r\n");
+      out.write("    </tr>\r\n");
+      out.write("\r\n");
+      out.write("    ");
+}
+    } else if (lijstAlleVluchtenLuchtvaartmaatschappij != null) {
+        for (Vlucht vlucht : lijstAlleVluchtenLuchtvaartmaatschappij) {
+      out.write("\r\n");
+      out.write("    <tr>\r\n");
+      out.write("        <td> ");
+      out.print(vlucht.getCode());
+      out.write("</td>\r\n");
+      out.write("        <td>");
+      out.print(vlucht.getVertrekluchthaven().getLuchthavennaam());
+      out.write("</td>\r\n");
+      out.write("        <td> ");
+      out.print(vlucht.getVertrektijd());
+      out.write("</td>\r\n");
+      out.write("        <td>");
+      out.print(vlucht.getAankomstluchthaven().getLuchthavennaam());
+      out.write("</td>\r\n");
+      out.write("        <td> ");
+      out.print(vlucht.getAankomsttijd());
+      out.write("</td> \r\n");
+      out.write("        ");
+if (persoon != null && persoon.getSoort() == 'P') {
+      out.write("\r\n");
+      out.write("        <td> <button value=\"");
+      out.print(vlucht.getCode());
+      out.write("\" name=\"knopVluchtBoeken\" >Vlucht boeken</button> </td>\r\n");
+      out.write("        ");
+}
+            if (persoon != null && persoon.getSoort() == 'B') {
+      out.write("\r\n");
+      out.write("    <form action=\"ManageServlet\">\r\n");
+      out.write("        <td> <button type=\"submit\" value=\"");
+      out.print(vlucht.getCode());
+      out.write("\" name=\"knopPassagierslijst\" >Passagierslijst</button> </td>\r\n");
+      out.write("    </form>\r\n");
+      out.write("    ");
+}
+      out.write("\r\n");
+      out.write("</tr>                   \r\n");
+}
+} else if (vlucht2 != null) {
+      out.write("\r\n");
+      out.write("<tr>\r\n");
+      out.write("    <td> ");
+      out.print(vlucht2.getCode());
+      out.write("</td>\r\n");
+      out.write("    <td>");
+      out.print(vlucht2.getVertrekluchthaven().getLuchthavennaam());
+      out.write("</td>\r\n");
+      out.write("    <td> ");
+      out.print(vlucht2.getVertrektijd());
+      out.write("</td>\r\n");
+      out.write("    <td>");
+      out.print(vlucht2.getAankomstluchthaven().getLuchthavennaam());
+      out.write("</td>\r\n");
+      out.write("    <td> ");
+      out.print(vlucht2.getAankomsttijd());
+      out.write("</td> \r\n");
+      out.write("    ");
+if (persoon != null && persoon.getSoort() == 'P') {
+      out.write("\r\n");
+      out.write("    <td> <button value=\"");
+      out.print(vlucht2.getCode());
+      out.write("\" name=\"knopVluchtBoeken\" >Vlucht boeken</button> </td>\r\n");
+      out.write("    ");
+}
+        if (persoon != null && persoon.getSoort() == 'B') {
+      out.write("\r\n");
+      out.write("<form action=\"ManageServlet\">\r\n");
+      out.write("    <td> <button type=\"submit\" value=\"");
+      out.print(vlucht2.getCode());
+      out.write("\" name=\"knopPassagierslijst\" >Passagierslijst</button> </td>\r\n");
+      out.write("</form>\r\n");
+}
+      out.write("\r\n");
+      out.write("</tr>                   \r\n");
+} else if (vluchtenDatum != null) {
+    for (Vlucht vlucht : vluchtenDatum) {
+      out.write("\r\n");
+      out.write("<tr>\r\n");
+      out.write("    <td> ");
+      out.print(vlucht.getCode());
+      out.write("</td>\r\n");
+      out.write("    <td>");
+      out.print(vlucht.getVertrekluchthaven().getLuchthavennaam());
+      out.write("</td>\r\n");
+      out.write("    <td> ");
+      out.print(vlucht.getVertrektijd());
+      out.write("</td>\r\n");
+      out.write("    <td>");
+      out.print(vlucht.getAankomstluchthaven().getLuchthavennaam());
+      out.write("</td>\r\n");
+      out.write("    <td> ");
+      out.print(vlucht.getAankomsttijd());
+      out.write("</td>  \r\n");
+      out.write("    ");
+if (persoon != null && persoon.getSoort() == 'P') {
+      out.write("\r\n");
+      out.write("    <td> <button value=\"");
+      out.print(vlucht.getCode());
+      out.write("\" name=\"knopVluchtBoeken\" >Vlucht boeken</button> </td>\r\n");
+      out.write("    ");
+}
+            if (persoon != null && persoon.getSoort() == 'B') {
+      out.write("\r\n");
+      out.write("<form action=\"ManageServlet\">\r\n");
+      out.write("    <td> <button type=\"submit\" value=\"");
+      out.print(vlucht.getCode());
+      out.write("\" name=\"knopPassagierslijst\" >Passagierslijst</button> </td>\r\n");
+      out.write("</form>\r\n");
+}
+      out.write("\r\n");
+      out.write("</tr>                   \r\n");
+}
+    }
+      out.write("\r\n");
+      out.write("</tbody>\r\n");
+      out.write("</table>\r\n");
+      out.write("\r\n");
+      out.write("<form action=\"InlogServlet\">\r\n");
+      out.write("    <!-- Zet dit er bij voor een de naam van de gebruiker en een inlog of uitlog button te hebben : -->\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("    ");
+if (persoon != null) {
+      out.write("\r\n");
+      out.write("    <P>\r\n");
+      out.write("        <label name=\"naam\">");
+      out.print(persoon.getVoornaam());
       out.write("</label>\r\n");
-      out.write("                <label name=\"famillienaam\">");
-      out.print(persoon.getFamilienaam() );
+      out.write("        <label name=\"famillienaam\">");
+      out.print(persoon.getFamilienaam());
       out.write("</label>\r\n");
-      out.write("            </p>\r\n");
-      out.write("            <input type=\"submit\" value=\"Uitloggen\" name=\"UitlogKnop\"/>\r\n");
-      out.write("           ");
+      out.write("    </p>\r\n");
+      out.write("    <input type=\"submit\" value=\"Uitloggen\" name=\"UitlogKnop\"/>\r\n");
+      out.write("    ");
 } else {
       out.write("\r\n");
-      out.write("            <input type=\"submit\" value=\"Inloggen\" name=\"InlogKnop\"/>\r\n");
-      out.write("            ");
+      out.write("    <input type=\"submit\" value=\"Inloggen\" name=\"InlogKnop\"/>\r\n");
+      out.write("    ");
 }
       out.write("\r\n");
-      out.write("        </form> \r\n");
-      out.write("        \r\n");
-      out.write("        <p>  <a href=\"vluchtenZoeken.jsp\">Terug naar zoekpagina</a></p>\r\n");
-      out.write("        <p>  <a href=\"index.jsp\">Terug naar beginpagina</a></p>\r\n");
-      out.write("        \r\n");
-      out.write("    </body>\r\n");
+      out.write("</form> \r\n");
+      out.write("\r\n");
+      out.write("<p>  <a href=\"vluchtenZoeken.jsp\">Terug naar zoekpagina</a></p>\r\n");
+      out.write("<p>  <a href=\"index.jsp\">Terug naar beginpagina</a></p>\r\n");
+      out.write("\r\n");
+      out.write("</body>\r\n");
       out.write("</html>\r\n");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
