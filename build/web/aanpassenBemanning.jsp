@@ -21,70 +21,70 @@
         <%ArrayList<Luchtvaartmaatschappij> lijstAlleLuchtvaartmaatschappijen = (ArrayList<Luchtvaartmaatschappij>) request.getAttribute("lijstAlleLuchtvaartmaatschappijen");%>
         <%Bemanningslid bemanningslid = (Bemanningslid) request.getAttribute("bemanningslid");%>
         <h1>Overzicht vluchten</h1>
-        
+
         <table>
-                <thead>
-                    <tr>
-                        <td>Naam:</td>
-                        <td>Familienaam:</td>
-                        <td>Functie:</td>
-                        <td>Luchtvaartmaatschappij:</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td> <%=bemanningslid.getPersoon().getVoornaam() %></td>
-                        <td> <%=bemanningslid.getPersoon().getFamilienaam() %></td>
-                        <td> <%=bemanningslid.getFunctie().getFunctienaam() %></td>
-                        <td> <%=bemanningslid.getLuchtvaartmaatschappij().getLuchtvaartnaam() %></td>
-                        </tr>
-                </tbody>
-                </table>
-             <form action="AdminServlet">
-                 <input type="hidden" value="<%=bemanningslid.getId()%>" name="Id"/>
-              <%if (lijstAlleFuncties != null) {%>
+            <thead>
+                <tr>
+                    <td>Naam:</td>
+                    <td>Familienaam:</td>
+                    <td>Functie:</td>
+                    <td>Luchtvaartmaatschappij:</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> <%=bemanningslid.getPersoon().getVoornaam()%></td>
+                    <td> <%=bemanningslid.getPersoon().getFamilienaam()%></td>
+                    <td> <%=bemanningslid.getFunctie().getFunctienaam()%></td>
+                    <td> <%=bemanningslid.getLuchtvaartmaatschappij().getLuchtvaartnaam()%></td>
+                </tr>
+            </tbody>
+        </table>
+        <form action="AdminServlet">
+            <input type="hidden" value="<%=bemanningslid.getId()%>" name="Id"/>
+            <%if (lijstAlleFuncties != null) {%>
             <p>
                 <label for="functies">Kies een functie:</label>
                 <select name ="functies">
                     <option value="0">---Kies hier je functie---</option>
                     <% for (Functie functie : lijstAlleFuncties) {%>
-                    <option value="<%=functie.getId()%>"><%=functie.getFunctienaam() %> </option>
+                    <option value="<%=functie.getId()%>"><%=functie.getFunctienaam()%> </option>
                     <%}%>
                 </select>
             </p>
             <%}%>
-            
+
             <%if (lijstAlleLuchtvaartmaatschappijen != null) {%>
             <p>
                 <label for="maatschappij">Kies een maatschappij:</label>
                 <select name ="maatschappij">
                     <option value="0">---Kies hier je maatschappij---</option>
                     <% for (Luchtvaartmaatschappij luchtvaartmaatschappij : lijstAlleLuchtvaartmaatschappijen) {%>
-                    <option value="<%=luchtvaartmaatschappij.getId()%>"><%=luchtvaartmaatschappij.getLuchtvaartnaam() %> </option>
+                    <option value="<%=luchtvaartmaatschappij.getId()%>"><%=luchtvaartmaatschappij.getLuchtvaartnaam()%> </option>
                     <%}%>
                 </select>
             </p>
             <%}%>
-           
+
             <input type="submit" value="Aanpassen" name="AanpasKnop"/>
-            </form>
-             
-                <form action="InlogServlet">
-             <!-- Zet dit er bij voor een de naam van de gebruiker en een inlog of uitlog button te hebben : -->
-            
+        </form>
+
+        <form action="InlogServlet">
+            <!-- Zet dit er bij voor een de naam van de gebruiker en een inlog of uitlog button te hebben : -->
+
             <%Persoon persoon = (Persoon) session.getAttribute("persoon");
-            if(persoon != null){%>
+                if (persoon != null) {%>
             <P>
-                <label name="naam"><%=persoon.getVoornaam() %></label>
-                <label name="famillienaam"><%=persoon.getFamilienaam() %></label>
+                <label name="naam"><%=persoon.getVoornaam()%></label>
+                <label name="famillienaam"><%=persoon.getFamilienaam()%></label>
             </p>
             <input type="submit" value="Uitloggen" name="UitlogKnop"/>
-           <%} else {%>
+            <%} else {%>
             <input type="submit" value="Inloggen" name="InlogKnop"/>
             <%}%>
         </form> 
-        
-            <p>  <a href="index.jsp">Terug naar beginpagina</a></p>
-        
+
+        <p>  <a href="index.jsp">Terug naar beginpagina</a></p>
+
     </body>
 </html>

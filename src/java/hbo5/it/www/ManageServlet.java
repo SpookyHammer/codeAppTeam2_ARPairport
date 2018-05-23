@@ -84,8 +84,11 @@ public class ManageServlet extends HttpServlet {
             }
         }
         if (request.getParameter("MijnVluchten") != null) {
-            //Persoon persoon = (Persoon) session.getAttribute("persoon");
-            //Vlucht vlucht = davlucht.getAlleVluchtenVanPassagier()
+            Persoon persoon = (Persoon) session.getAttribute("persoon");
+            int id = persoon.getId();
+            ArrayList<Vlucht> lijstVluchten = davlucht.getAlleVluchtenVanPassagier(id);
+            request.setAttribute("lijstVluchten", lijstVluchten);
+            rd = request.getRequestDispatcher("geboekteVluchten.jsp");
         }
         if (request.getParameter("knopPassagierslijstZoeken") != null) {
             String vluchtCode = request.getParameter("knopPassagierslijstZoeken");

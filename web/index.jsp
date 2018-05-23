@@ -38,7 +38,7 @@
         <form action="InlogServlet">
             <!-- Zet dit er bij voor een de naam van de gebruiker en een inlog of uitlog button te hebben : -->
 
-            <% if(persoon != null){%>
+            <% if (persoon != null) {%>
             <P>
                 <label name="naam"><%=persoon.getVoornaam()%></label>
                 <label name="famillienaam"><%=persoon.getFamilienaam()%></label>
@@ -48,18 +48,18 @@
             <input type="submit" value="Inloggen" name="InlogKnop"/>
             <%}%>
         </form>        
-        
+
         <form action="ManageServlet">
-            
-           <%     if (persoon != null) {
+
+            <%     if (persoon != null) {
 
                     if (persoon.getSoort() == 'B') {%>
             <input type="submit" value="passagierslijst" name="knopPassagierslijst"/>  
             <input type="text" name="Vluchtnr"/>
             <%}
-                   }%>
+                }%>
         </form>
-        
+
         <a href="registratie.jsp">Registratietest</a>
     </p>
 </body>

@@ -144,7 +144,7 @@ public class ZoekServlet extends HttpServlet {
             if (request.getParameter("datum") != null) {
                 String datumString = request.getParameter("datum");
                 ArrayList<Vlucht> vluchtenDatum = davlucht.getAlleVluchtenByDate(datumString);
-                if (vluchtenDatum.size() != 0) {
+                if (vluchtenDatum != null) {
                     request.setAttribute("vluchtenDatum", vluchtenDatum);
                     rd = request.getRequestDispatcher("overzichtVluchten.jsp");
                 } else {
